@@ -1,0 +1,61 @@
+# windows10のPCにubuntuを入れる。Daul bootにしたい。
+
+
+#Windows 10 で　パーティションをして　dual boot の準備を進める。
+
+reference: http://www.iandprogram.net/entry/2015/09/15/115918
+
+1. 高速スタートアップを無効に
+コントロールパネル　－　ハードウェアとサウンド　－　電源オプション　－　電源ボタンの動作を選択する
+推奨の[高速スタートアップを有効にする]のチェックを外す
+
+2. パーティションする
+computerを右クリックして　管理　－　記憶部　－　ディスク管理
+
+3. 
+
+# BIOSで準備する
+
+1. boot mode を rapidから別のやつに変更
+
+2. bootする記憶装置の優先順位を変更する。usb flash memory からのブートを1位に設定。
+
+
+# install 用のusbを用意する
+
+1. 最低4gb以上のusbフラッシュメモリをフォーマット。フォーマット形式はFAT32で構わない。
+2. universal usb installer で　install用usbを作る
+
+
+#ubuntu install する
+partition 設定: その他
+
+swap same as memory(8GB)
+/       40GB 
+/home に50GB
+
+問題発生: grupでwindows10を選択してもwindows10が起動できない
+解決方法
+Edit
+  /boot/grub/grub.cfg
+Find
+  ### BEGIN /etc/grub.d/30_os-prober ###
+  menuentry 'Windows 10 (loader) (on /dev/sdXX)'
+
+After
+  chainloader +1
+
+Write
+  ntldr /bootmgr 
+  
+これで解決済み。
+理屈がわからない。気になるのは
+・windows7をwindows10にアップグレードしたこと。
+・SSDは何か違うのか?
+ぐらい。
+
+ntldr /bootmgr 
+の意味が分からないが, とにかく仕えたので満足。
+
+終わり。
+reference: https://askubuntu.com/questions/725290/grub-windows-10-doesnt-start-anymore
