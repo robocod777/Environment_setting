@@ -45,7 +45,7 @@ To use anaconda3,
 
 - FYI Anaconda & Docker
 (https://www.anaconda.com/blog/developer-blog/anaconda-and-docker-better-together-reproducible-data-science/)
-
+Anaconda (https://conda.io/docs/user-guide/install/windows.html)
 
 ```bsh
 docker pull continuumio/anaconda3
