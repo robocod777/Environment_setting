@@ -39,9 +39,13 @@ You can verify shared directory
 dk -k
 ```
 
-# Download(Pull?) docker container
+# Pull and Run anaconda docker container
 To use anaconda3,
 (https://hub.docker.com/r/continuumio/anaconda3/)
+
+- FYI Anaconda & Docker
+(https://www.anaconda.com/blog/developer-blog/anaconda-and-docker-better-together-reproducible-data-science/)
+
 
 ```bsh
 docker pull continuumio/anaconda3
