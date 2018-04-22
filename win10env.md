@@ -60,6 +60,45 @@ You can then view the Jupyter Notebook by opening http://localhost:8888 in your 
 or http://<DOCKER-MACHINE-IP>:8888 if you are using a Docker Machine VM.
 
 # Conda Navigator
+## opencv3 env
+Create environment named "opencv3".  
+Then, install package opencv=3.2.0 via conda.
+```bsh
+conda install -c conda-forge opencv=3.2.0
+```
+cf> I failed with "conda install opencv3"  
+
+*** List of installed library ***
+```
+ca-certificates 2018.4.16
+libwebp 0.5.2
+certifi 2018.4.16
+libtiff 4.0.9
+jpeg 9b
+numpy 1.13.3
+opencv 3.2.0
+openssl 1.0.2o
+zlib 1.2.11
+icu 58.2
+mkl 2018.0.2
+mkl fft 1.0.2
+intel-openmp 2018.0.0
+mkl_random 1.0.1
+qt 5.6.2
+libpng 1.6.34 
+```
+
+(optional) upgrade pip
+```bsh
+python -m pip install --upgrade pip
+```
+Run jupyter notebook
+```bsh
+jupyter notebook
+```
+
+
+## opencv env
 create new environment as "opencv"  
 Upgrade pip
 ```bsh
@@ -93,5 +132,5 @@ print(cv2.__version__)
 3.4.1
 ```
 
-Helpful Link [Stack flow](https://stackoverflow.com/questions/42994813/installing-opencv-on-windows-10-with-python-3-6-and-anaconda-3-6)
+Helpful Link: [Stack flow](https://stackoverflow.com/questions/42994813/installing-opencv-on-windows-10-with-python-3-6-and-anaconda-3-6)
 
