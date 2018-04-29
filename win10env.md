@@ -136,7 +136,8 @@ Helpful Link: [Stack flow](https://stackoverflow.com/questions/42994813/installi
 
 # Set Jupyter Notebook Kernel with ipykernel
 
-[Helpful link(Same problem)](https://github.com/jupyter/notebook/issues/1524)
+[Helpful link(Same problem: Import on Jupyter notebook failed where command prompt works.)](https://github.com/jupyter/notebook/issues/1524)  
+In my case: cv2.
 
 What I did:
 ```bsh
@@ -155,3 +156,9 @@ Then, launch jupyter notebook
 (oepnCV) HOME> jupyther notebook
 ```
 I could find "PythonCV" kernel.
+Make a new file with PythonCV, then 
+```python
+import cv2
+print(cv2.__version__)
+```
+It works!
