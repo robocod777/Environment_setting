@@ -162,3 +162,20 @@ import cv2
 print(cv2.__version__)
 ```
 It works!
+
+# Install "Pillow" to read 'jpg' images.
+Error Msg I got:
+```python
+ValueError: Only know how to handle extensions: ['png']; with Pillow installed matplotlib can handle more images
+```
+
+Reason:  
+"imread" can only read png images.
+
+What I did:
+```bsh
+(openCV) HOME> cd AppData\Local\conda\conda\envs\openCV
+(openCV) openCV> python.exe -m pip install pillow
+```
+
+[Reference](https://github.com/udacity/sdc-issue-reports/issues/69)
