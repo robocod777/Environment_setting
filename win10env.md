@@ -134,3 +134,24 @@ print(cv2.__version__)
 
 Helpful Link: [Stack flow](https://stackoverflow.com/questions/42994813/installing-opencv-on-windows-10-with-python-3-6-and-anaconda-3-6)
 
+# Set Jupyter Notebook Kernel with ipykernel
+
+[Helpful link(Same problem)](https://github.com/jupyter/notebook/issues/1524)
+
+What I did:
+```bsh
+(openCV) HOME> AppData\Local\conda\conda\envs\openCV\python.exe -m pip install ipykernel
+  Something installed.......
+(openCV) HOME> AppData\Local\conda\conda\envs\openCV\python.exe -m ipykernel install
+  Installed kernelspec python3 in C:\ProgramData\jupyter\kernels\python3
+(openCV) HOME> AppData\Local\conda\conda\envs\openCV\python.exe -m ipykernel install --name Python3
+  Installed kernelspec Python3 in C:\ProgramData\jupyter\kernels\python3
+(openCV) HOME> AppData\Local\conda\conda\envs\openCV\python.exe -m ipykernel install --name PythonCV
+  Installed kernelspec PythonCV in C:\ProgramData\jupyter\kernels\pythoncv
+```
+
+Then, launch jupyter notebook
+```bsh
+(oepnCV) HOME> jupyther notebook
+```
+I could find "PythonCV" kernel.
