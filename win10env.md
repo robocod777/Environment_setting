@@ -179,3 +179,28 @@ What I did:
 ```
 
 [Reference](https://github.com/udacity/sdc-issue-reports/issues/69)
+
+# Install "PyTorch" in OpenCV kernel.
+First of all, I've added "conda" Path to the Environment variables.
+'''C:\Users\joony\Anaconda3\Scripts\'''
+
+Reference:  
+[PyTorch(official?)](https://pytorch.org/#pip-install-pytorch)
+
+My options: windows, conda, python3.6, None CUDA.  
+**PyTorch**
+```bsh
+(openCV) conda.exe install pytorch-cpu -c pytorch
+```
+I used "conda.exe" instead of "conda".  
+**torchvision**
+```bsh
+(openCV) HOME> cd AppData\Local\conda\conda\envs\openCV
+(openCV) openCV> python.exe -m pip install cython
+(openCV) openCV> python.exe -m pip install torchvision
+```
+Before installing torchvision, I have installed cython because error message below was appeared.
+```
+mkl-random 1.0.1 requires cython, which is not installed.
+mkl-fft 1.0.0 requires cython, which is not installed.
+```
