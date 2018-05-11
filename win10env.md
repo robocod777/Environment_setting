@@ -204,3 +204,19 @@ Before installing torchvision, I have installed cython because error message bel
 mkl-random 1.0.1 requires cython, which is not installed.
 mkl-fft 1.0.0 requires cython, which is not installed.
 ```
+
+**pandas**
+```bash
+(openCV) HOME> cd AppData\Local\conda\conda\envs\openCV
+(openCV) openCV> python.exe -m pip install pandas
+Installing collected packages: pandas
+Successfully installed pandas-0.22.0
+```
+
+**scipy**
+ ```bash
+(openCV) HOME> cd AppData\Local\conda\conda\envs\openCV
+(openCV) openCV> python.exe -m pip install scipy
+Installing collected packages: scipy
+Successfully installed scipy-1.1.0
+```
