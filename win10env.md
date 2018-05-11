@@ -205,6 +205,7 @@ mkl-random 1.0.1 requires cython, which is not installed.
 mkl-fft 1.0.0 requires cython, which is not installed.
 ```
 
+# Add some libraries on OpenCV kernel.
 **pandas**
 ```bash
 (openCV) HOME> cd AppData\Local\conda\conda\envs\openCV
