@@ -220,6 +220,7 @@ Successfully installed pandas-0.22.0
 (openCV) openCV> python.exe -m pip install scipy
 Installing collected packages: scipy
 Successfully installed scipy-1.1.0
+```
 
 
 **requests**
