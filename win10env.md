@@ -220,4 +220,12 @@ Successfully installed pandas-0.22.0
 (openCV) openCV> python.exe -m pip install scipy
 Installing collected packages: scipy
 Successfully installed scipy-1.1.0
+
+
+**requests**
+ ```bash
+(openCV) HOME> cd AppData\Local\conda\conda\envs\openCV
+(openCV) openCV> python.exe -m pip install requests
+Installing collected packages: 
+Successfully installed chardet-3.0.4 idna-2.6 requests-2.18.4 urllib3-1.22
 ```
