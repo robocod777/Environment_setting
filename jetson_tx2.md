@@ -127,3 +127,38 @@ Python 2.7.12
 nvidia@tegra-ubuntu:~$ 
 ```
 
+##pytorch
+[ref link](https://github.com/andrewadare/jetson-tx2-pytorch)
+add --user option when pip3 install
+### scipy and LA libs
+sudo apt install libopenblas-dev libatlas-dev liblapack-dev
+sudo apt install liblapacke-dev checkinstall #For openCV
+
+sudo apt-get install python3.6-dev libmysqlclient-dev 
+pip3 install --user numpy 
+pip3 install --user scipy # 20~30min
+
+### Build tool prerequisites
+pip3 install --user pyyaml
+pip3 install --user scikit-build
+sudo apt install ninja-build
+
+### CMake
+[CMake link](https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line/865294#865294)
+* Uninstall the default version (nothing)
+sudo apt remove cmake
+sudo apt purge --auto-remove cmake
+
+$ download lastest package from [cmake official](https://cmake.org/download/)
+"Unix/Linux Source (has \n line feeds)" (cmake-3.11.3.tar.gz) worked for me.
+$ tar -xzvf cmake-$version.$build.tar.gz
+$ cd cmake-$version.$build/
+$ ./bootstrap
+$ make -j4
+$ sudo make install
+ 6/12
+ 
+### CFFI
+sudo apt install python3-dev
+sudo apt install libffi-dev
+sudo apt install libffi-dev
