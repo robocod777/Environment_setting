@@ -24,7 +24,7 @@ W: The repository 'file:/var/nv-tensorrt-repo-ga-cuda9.0-trt3.0.4-20180208  Rele
 N: Data from such a repository can't be authenticated and is therefore potentially dangerous to use.
 N: See apt-secure(8) manpage for repository creation and user configuration details.
 ```
-Solution: Add a public key.
+Solution: Add a public key. [link](https://devtalk.nvidia.com/default/topic/1030831/jetpack-3-2-mdash-l4t-r28-2-production-release-for-jetson-tx1-tx2/?offset=14#5245450)
 ```bsh
 $ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys XXXXXXXXXXXXXXXX
 ```
@@ -33,7 +33,7 @@ $ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys XXXXXXXXXXXXXXXX
 E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
 E: Unable to lock the administration directory (/var/lib/dpkg/), is another process using it?
 ```
-Solution: kill the process that uses apt. 
+Solution: kill the process that uses apt. [link](https://askubuntu.com/questions/15433/unable-to-lock-the-administration-directory-var-lib-dpkg-is-another-process)
 ```bsh
 $ ps aux | grep apt
 $ kill process#
