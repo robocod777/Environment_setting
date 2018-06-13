@@ -359,8 +359,10 @@ torch.backends.cudnn.is_acceptable(torch.cuda.FloatTensor(1))
 
 If true returned, it means that pytorch works well.
 ```bsh
-(envCV) $ pip install --user torchvision
+(envCV) $ pip install --user torchvision==0.2.1
 ```
+
+pillow 5.1.0, numpy 1.14.2 pandas 0.22.0, urllib3 1.22, scipy 1.1.0, ipython 6.3.1, jupyter-client 5.2.3, jupyter-core=4.4.0, Cython 0.28.2 ...........
 
 #### Cleanup
 The postFlashTX1 repo contains some useful cleanup scripts. In addition:
