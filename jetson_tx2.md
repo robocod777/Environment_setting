@@ -350,3 +350,25 @@ Installing collected packages: pyyaml
 Successfully installed pyyaml-3.12
 (envCV) nvidia@tegra-ubuntu:~/pytorch$ time python setup.py install --user
 ```
+
+~6/13
+```python
+import torch
+torch.backends.cudnn.is_acceptable(torch.cuda.FloatTensor(1))
+```
+
+If true returned, it means that pytorch works well.
+```bsh
+(envCV) $ pip install --user torchvision
+```
+
+#### Cleanup
+The postFlashTX1 repo contains some useful cleanup scripts. In addition:
+```bsh
+sudo apt clean
+sudo apt autoremove --purge
+sudo rm /usr/src/*.tbz2 ## I had 6.9 GB of zip files
+sudo rm /var/cuda-repo-8.0-local/*.deb
+rm ~/temp # From my CMake 3.7 install
+```
+The OpenCV sources can also be removed if necessary.
