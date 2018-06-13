@@ -149,6 +149,7 @@ sudo apt install ninja-build
 sudo apt remove cmake
 sudo apt purge --auto-remove cmake
 
+```bsh
 $ download lastest package from [cmake official](https://cmake.org/download/)
 "Unix/Linux Source (has \n line feeds)" (cmake-3.11.3.tar.gz) worked for me.
 $ tar -xzvf cmake-$version.$build.tar.gz
@@ -156,9 +157,196 @@ $ cd cmake-$version.$build/
 $ ./bootstrap
 $ make -j4
 $ sudo make install
- 6/12
- 
-### CFFI
+```
+After installing, codes below show the version.
+```bsh
+nvidia@tegra-ubuntu:~$ cmake --version
+cmake version 3.11.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+```
+
+
+### Install CFFI
 sudo apt install python3-dev
 sudo apt install libffi-dev
-sudo apt install libffi-dev
+pip3.6 install --user cffi
+
+### OpenCV
+[reference link](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/)
+ I skipped CUDA and OpenCL integration, and went system-wide with the Python 3 bindings (no virtualenvs). 
+ 
+ Install openCV dependencies.
+ ```bsh
+$ sudo apt-get install build-essential cmake pkg-config
+$ sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev
+$ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+$ sudo apt-get install libxvidcore-dev libx264-dev
+$ sudo apt-get install libgtk-3-dev
+$ sudo apt-get install libatlas-base-dev gfortran
+```
+Download openCV source (ver. 3.2.0)
+and unzip.
+```bsh
+nvidia@tegra-ubuntu:~$ wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.2.0.zip
+--2018-06-13 23:39:24--  https://github.com/Itseez/opencv/archive/3.2.0.zip
+Resolving github.com (github.com)... 192.30.255.112, 192.30.255.113
+Connecting to github.com (github.com)|192.30.255.112|:443... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://github.com/opencv/opencv/archive/3.2.0.zip [following]
+--2018-06-13 23:39:30--  https://github.com/opencv/opencv/archive/3.2.0.zip
+Reusing existing connection to github.com:443.
+HTTP request sent, awaiting response... 302 Found
+Location: https://codeload.github.com/opencv/opencv/zip/3.2.0 [following]
+--2018-06-13 23:39:31--  https://codeload.github.com/opencv/opencv/zip/3.2.0
+Resolving codeload.github.com (codeload.github.com)... 192.30.255.121, 192.30.255.120
+Connecting to codeload.github.com (codeload.github.com)|192.30.255.121|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [application/zip]
+Saving to: ‘opencv.zip’
+
+opencv.zip              [             <=>    ]  78.23M  35.1KB/s    in 30m 14s 
+
+2018-06-14 00:09:47 (44.2 KB/s) - ‘opencv.zip’ saved [82033498]
+
+$ unzip opencv.zip
+$ ls opencv-3.2.0
+```
+
+openCV and openCV_contrib should be same version.
+```bsh
+nvidia@tegra-ubuntu:~$ wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.2.0.zip
+--2018-06-13 23:39:05--  https://github.com/Itseez/opencv_contrib/archive/3.2.0.zip
+Resolving github.com (github.com)... 192.30.255.113, 192.30.255.112
+Connecting to github.com (github.com)|192.30.255.113|:443... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://github.com/opencv/opencv_contrib/archive/3.2.0.zip [following]
+--2018-06-13 23:39:06--  https://github.com/opencv/opencv_contrib/archive/3.2.0.zip
+Reusing existing connection to github.com:443.
+HTTP request sent, awaiting response... 302 Found
+Location: https://codeload.github.com/opencv/opencv_contrib/zip/3.2.0 [following]
+--2018-06-13 23:39:06--  https://codeload.github.com/opencv/opencv_contrib/zip/3.2.0
+Resolving codeload.github.com (codeload.github.com)... 192.30.255.121, 192.30.255.120
+Connecting to codeload.github.com (codeload.github.com)|192.30.255.121|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [application/zip]
+Saving to: ‘opencv_contrib.zip’
+
+opencv_contrib.zip      [            <=>     ]  53.39M  48.2KB/s    in 23m 18s 
+
+2018-06-14 00:02:25 (39.1 KB/s) - ‘opencv_contrib.zip’ saved [55984686]
+
+$ unzip opencv_contrib.zip
+```
+
+activate envCV and install numpy
+```bsh
+(envCV) $ pip install numpy==1.12.1
+```
+
+#### Install openCV!
+
+make .sh file.
+
+```bsh
+(envCV) $ cd ~/opencv-3.2.0
+(envCV) $ mkdir build
+(envCV) $ cd build
+(envCV) $ vi build.sh
+``````bsh
+#!/bin/bash
+cmake \
+    -D ENABLE_PRECOMPILED_HEADERS=OFF \
+    -D WITH_OPENCL=OFF \
+    -D WITH_CUDA=OFF \
+    -D WITH_CUFFT=OFF \
+    -D WITH_CUBLAS=OFF \
+    -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_PYTHON_EXAMPLES=OFF \
+    -D INSTALL_C_EXAMPLES=OFF \
+    -D PYTHON_EXECUTABLE=~/envCV/bin/python \
+    -D BUILD_EXAMPLES=OFF ..
+
+```
+Make builder!
+```bsh
+(envCV) $ chmod +x build.sh
+(envCV) $ ./build.sh
+```
+
+```bsh
+...
+--   Python 3:
+--     Interpreter:                 /home/nvidia/envCV/bin/python3 (ver 3.6.5)
+--     Libraries:                   /usr/lib/aarch64-linux-gnu/libpython3.6m.so (ver 3.6.5)
+--     numpy:                       /home/nvidia/envCV/lib/python3.6/site-packages/numpy/core/include (ver 1.12.1)
+--     packages path:               lib/python3.6/site-packages
+--
+...
+```
+
+Compile
+```bsh
+(envCV) $ make -j4
+```
+Install
+```bsh
+(envCV) $ sudo make install
+(envCV) $ sudo ldconfig
+```
+
+Certicify and move cv2 file.
+```bsh
+(envCV) $ ls /usr/local/lib/python3.6/site-packages
+cv2.cpython-36m-aarch64-linux-gnu.so
+(envCV) $ mv /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-aarch64-linux-gnu.so ~/envCV/lib/python3.6/site-packages/cv2.so
+```
+
+```bsh
+(envCV) nvidia@tegra-ubuntu:~/envCV/lib/python3.6/site-packages$ python
+Python 3.6.5 (default, May  3 2018, 10:08:28) 
+[GCC 5.4.0 20160609] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import cv2
+>>> cv2.__version__
+'3.2.0'
+>>> 
+```
+
+```bsh
+$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2017 NVIDIA Corporation
+Built on Sun_Nov_19_03:16:56_CST_2017
+Cuda compilation tools, release 9.0, V9.0.252
+$ ldconfig -p | grep dnn
+```
+
+```bsh
+#.bashrc
+export CUDNN_LIB_DIR=/usr/lib/aarch64-linux-gnu
+export CUDNN_INCLUDE_DIR=/usr/include
+```
+
+```bsh
+(envCV) $ python
+>>> import os
+>>> print(os.getenv("CUDNN_LIB_DIR"))
+/usr/lib/aarch64-linux-gnu
+```
+
+## PyTorch 0.4.0
+
+```bsh
+(envCV) nvidia@tegra-ubuntu:~/pytorch$ git clone https://github.com/pytorch/pytorch.git
+(envCV) nvidia@tegra-ubuntu:~/pytorch$ git checkout -b v0.4.0 v0.4.0
+```
+```bsh
+(envCV) nvidia@tegra-ubuntu:~/pytorch$ git submodule update --init
+(envCV) nvidia@tegra-ubuntu:~/pytorch$ pip install pyyaml
+Collecting pyyaml
+Installing collected packages: pyyaml
+Successfully installed pyyaml-3.12
+(envCV) nvidia@tegra-ubuntu:~/pytorch$ time python setup.py install --user
+```
