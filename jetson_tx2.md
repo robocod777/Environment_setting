@@ -383,17 +383,17 @@ envCV/lib/python3.6/site-packages $ easyinstall cython==0.28.2
 
 
 #### Cleanup
-The postFlashTX1 repo contains some useful cleanup scripts. In addition:
+The postFlashTX1 repo contains some useful cleanup scripts. In addition:  
 ```bsh
-sudo apt clean
-sudo apt autoremove --purge
-sudo rm /usr/src/*.tbz2 ## I had 6.9 GB of zip files
-sudo rm /var/cuda-repo-8.0-local/*.deb
-rm ~/temp # From my CMake 3.7 install
+$ sudo apt clean
+$ sudo apt autoremove --purge
+$ sudo rm /usr/src/*.tbz2 ## I don't have any files.
+$ sudo rm /var/cuda-repo-8.0-local/*.deb <- I didn't do this
+$ rm ~/temp # From my CMake 3.7 install  <- I didn't do this
 ```
 The OpenCV sources can also be removed if necessary.
 
-## Fail to open terminal
+## Memo: When fail to open terminal
 with error message below:
 ```bsh
 Traceback (most recent call last):
