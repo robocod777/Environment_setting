@@ -362,9 +362,25 @@ If true returned, it means that pytorch works well.
 (envCV) $ pip install torchvision==0.2.1
 ```
 
-pillow 5.1.0, numpy 1.14.2 pandas 0.22.0, urllib3 1.22, scipy 1.1.0, ipython 6.3.1, jupyter-client 5.2.3, jupyter-core=4.4.0, Cython 0.28.2 ...........
+```
+#requirement
+pillow==5.1.0
+numpy==1.14.2
+urllib3==1.22
+scipy==1.1.0
+ipython==6.3.1
+jupyter-client==5.2.3 
+jupyter-core==4.4.0 
+```
+
+
 ```bsh
 envCV/lib/python3.6/site-packages $ easyinstall cython==0.28.2
+(envCV) $ pip install -r requirement
+(envCV) $ pip install pandas 0.22.0 <- failed
+(envCV) $ pip install pandas
+```
+
 
 #### Cleanup
 The postFlashTX1 repo contains some useful cleanup scripts. In addition:
