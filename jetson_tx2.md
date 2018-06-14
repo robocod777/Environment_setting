@@ -348,7 +348,7 @@ export CUDNN_INCLUDE_DIR=/usr/include
 Collecting pyyaml
 Installing collected packages: pyyaml
 Successfully installed pyyaml-3.12
-(envCV) nvidia@tegra-ubuntu:~/pytorch$ time python setup.py install --user
+(envCV) nvidia@tegra-ubuntu:~/pytorch$ time python setup.py install
 ```
 
 ~6/13
@@ -359,10 +359,12 @@ torch.backends.cudnn.is_acceptable(torch.cuda.FloatTensor(1))
 
 If true returned, it means that pytorch works well.
 ```bsh
-(envCV) $ pip install --user torchvision==0.2.1
+(envCV) $ pip install torchvision==0.2.1
 ```
 
 pillow 5.1.0, numpy 1.14.2 pandas 0.22.0, urllib3 1.22, scipy 1.1.0, ipython 6.3.1, jupyter-client 5.2.3, jupyter-core=4.4.0, Cython 0.28.2 ...........
+```bsh
+envCV/lib/python3.6/site-packages $ easyinstall cython==0.28.2
 
 #### Cleanup
 The postFlashTX1 repo contains some useful cleanup scripts. In addition:
@@ -415,3 +417,21 @@ $ cd /usr/lib/python3/dist-packages/gi
 $ sudo cp _gi_cairo.cpython-35m-aarch64-linux-gnu.so _gi_cairo.cpython-36m-aarch64-linux-gnu.so 
 $ sudo cp _gi.cpython-35m-aarch64-linux-gnu.so _gi.cpython-36m-aarch64-linux-gnu.so 
 ```
+
+# Performance Mode (nvpmodel mode definition) (cpu setting)
+The nvidia jetson tx2 has 6 cores. (4+2denvers).  
+But I can't find denver cpus. And only cpu1 works hard (100%), even cpu 2~4 doesn't worke(0%) though.
+
+```bsh
+# To see what is enabled:
+$ sudo cat /sys/devices/system/cpu/online
+# Check the current mode (default: 3)
+$ sudo nvpmodel -q –verbose
+# To see available modes:
+$ sudo nvpmodel -p --verbose
+# Set performance: sudo nvpmodel -m [mode_number]
+$ sudo nvpmodel -m 0
+# Also:
+sudo /home/ubuntu/jetson_clocks.sh
+```
+
