@@ -374,3 +374,44 @@ sudo rm /var/cuda-repo-8.0-local/*.deb
 rm ~/temp # From my CMake 3.7 install
 ```
 The OpenCV sources can also be removed if necessary.
+
+## Fail to open terminal
+with error message below:
+```bsh
+Traceback (most recent call last):
+  File "/usr/bin/gnome-terminal", line 9, in <module>
+    from gi.repository import GLib, Gio
+  File "/usr/lib/python3/dist-packages/gi/__init__.py", line 42, in <module>
+    from . import _gi
+ImportError: cannot import name '_gi'
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+Traceback (most recent call last):
+  File "/usr/bin/gnome-terminal", line 9, in <module>
+    from gi.repository import GLib, Gio
+  File "/usr/lib/python3/dist-packages/gi/__init__.py", line 42, in <module>
+    from . import _gi
+ImportError: cannot import name '_gi'
+```
+Does this error occur because I installed python3.6?    
+Anyway, solution:
+```bsh
+$ cd /usr/lib/python3/dist-packages/gi
+$ sudo cp _gi_cairo.cpython-35m-aarch64-linux-gnu.so _gi_cairo.cpython-36m-aarch64-linux-gnu.so 
+$ sudo cp _gi.cpython-35m-aarch64-linux-gnu.so _gi.cpython-36m-aarch64-linux-gnu.so 
+```
