@@ -79,7 +79,7 @@ Traceback (most recent call last):
     from pip import main
 ImportError: cannot import name 'main'
 ```
-Solution: Edit /use/bin/pip3 [link](https://github.com/pypa/pip/issues/5240#issuecomment-381662679)
+Solution: Edit /usr/bin/pip3 [link](https://github.com/pypa/pip/issues/5240#issuecomment-381662679)
 ```python
 #I upgraded with pyenv, both python2 and python3, now pip2 not work and pip3 works
 #After comparing pip2 and pip3, the difference is the import line
@@ -93,7 +93,8 @@ from pip._internal import main
 After substitute pip2 import line with pip3 version, it works
 ```
 
-## python3.6 and pip3 (python3.6)
+## python3.6 and pip3 (python3.6) - skipped
+
 ```bsh
 $ add-apt-repository ppa:jonathonf/python-3.6
 $ sudo apt-get update
@@ -136,57 +137,86 @@ Python 2.7.12
 nvidia@tegra-ubuntu:~$ 
 ```
 
-##pytorch
-[ref link](https://github.com/andrewadare/jetson-tx2-pytorch)
-add --user option when pip3 install
+## Install pytorch (after deactivating virtualenv)
+
+[ref link](https://github.com/andrewadare/jetson-tx2-pytorch) <br>
+add --user option when pip3 install, like pip3 install --user foo
+
 ### scipy and LA libs
-sudo apt install libopenblas-dev libatlas-dev liblapack-dev
-sudo apt install liblapacke-dev checkinstall #For openCV
-
-sudo apt-get install python3.6-dev libmysqlclient-dev 
-pip3 install --user numpy 
-pip3 install --user scipy # 20~30min
-
-### Build tool prerequisites
-pip3 install --user pyyaml
-pip3 install --user scikit-build
-sudo apt install ninja-build
-
-### CMake
-[CMake link](https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line/865294#865294)
-* Uninstall the default version (nothing)
-sudo apt remove cmake
-sudo apt purge --auto-remove cmake
+```bsh
+$ sudo apt install libopenblas-dev libatlas-dev liblapack-dev
+$ sudo apt install liblapacke-dev checkinstall #For openCV
+```
 
 ```bsh
-$ download lastest package from [cmake official](https://cmake.org/download/)
-"Unix/Linux Source (has \n line feeds)" (cmake-3.11.3.tar.gz) worked for me.
+$ sudo apt-get install python3.6-dev libmysqlclient-dev 
+$ pip3 install --user numpy 
+$ pip3 install --user scipy # 20~30min
+```
+
+### Build tool prerequisites
+```bsh 
+$ pip3 install --user pyyaml
+$ pip3 install --user scikit-build
+$ sudo apt install ninja-build
+```
+
+### CMake
+Ref: [CMake link](https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line/865294#865294)
+
+* Uninstall the default version (nothing)
+```bsh
+$ sudo apt remove cmake
+$ sudo apt purge --auto-remove cmake
+```
+
+* Download lastest package from [cmake official](https://cmake.org/download/) <br>
+"Unix/Linux Source (has \n line feeds)" (cmake-3.12.1.tar.gz) worked for me.
+
+```bsh
 $ tar -xzvf cmake-$version.$build.tar.gz
 $ cd cmake-$version.$build/
 $ ./bootstrap
-$ make -j4
+$ make -j4 # 4~5 minutes
 $ sudo make install
 ```
-After installing, codes below show the version.
+
+After installing, commands below show the cmake-version.
+
 ```bsh
-nvidia@tegra-ubuntu:~$ cmake --version
-cmake version 3.11.3
+$ cmake --version
+cmake version 3.12.1
 
 CMake suite maintained and supported by Kitware (kitware.com/cmake).
 ```
 
-
 ### Install CFFI
 sudo apt install python3-dev
 sudo apt install libffi-dev
-pip3.6 install --user cffi
+pip3 install --user cffi
 
-### OpenCV
-[reference link](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/)
- I skipped CUDA and OpenCL integration, and went system-wide with the Python 3 bindings (no virtualenvs). 
- 
- Install openCV dependencies.
- ```bsh
+### Install OpenCV 3.4 (skipped at Jetpack 3.3)
+[reference](https://github.com/jetsonhacks/buildOpenCVTX2)
+
+* Remove opencv* before installing OpenCV3.4
+```bsh
+$ sudo apt-get purge libopencv*
+```
+* Git clone and build
+```bsh
+$ git clone https://github.com/jetsonhacks/buildOpenCVTX2
+$ cd buildOpenCVTX2
+$ ./buildOpenCV.sh
+```
+
+Install finished.
+
+
+~~[reference link](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/)<br>
+I skipped CUDA and OpenCL integration, and went system-wide with the Python 3 bindings (no virtualenvs). <br>
+Install openCV dependencies.~~
+
+```bsh
 $ sudo apt-get install build-essential cmake pkg-config
 $ sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev
 $ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
@@ -194,8 +224,7 @@ $ sudo apt-get install libxvidcore-dev libx264-dev
 $ sudo apt-get install libgtk-3-dev
 $ sudo apt-get install libatlas-base-dev gfortran
 ```
-Download openCV source (ver. 3.2.0)
-and unzip.
+* ~~Download openCV source (ver. 3.2.0) and unzip. ~~
 ```bsh
 nvidia@tegra-ubuntu:~$ wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.2.0.zip
 --2018-06-13 23:39:24--  https://github.com/Itseez/opencv/archive/3.2.0.zip
@@ -222,7 +251,7 @@ $ unzip opencv.zip
 $ ls opencv-3.2.0
 ```
 
-openCV and openCV_contrib should be same version.
+** ~~openCV and openCV_contrib should be same version.~~
 ```bsh
 nvidia@tegra-ubuntu:~$ wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.2.0.zip
 --2018-06-13 23:39:05--  https://github.com/Itseez/opencv_contrib/archive/3.2.0.zip
@@ -248,14 +277,14 @@ opencv_contrib.zip      [            <=>     ]  53.39M  48.2KB/s    in 23m 18s
 $ unzip opencv_contrib.zip
 ```
 
-activate envCV and install numpy
+~~activate envCV and install numpy~~
 ```bsh
 (envCV) $ pip install numpy==1.12.1
 ```
 
-#### Install openCV!
+#### ~~Install openCV!~~
 
-make .sh file.
+~~make .sh file.~~
 
 ```bsh
 (envCV) $ cd ~/opencv-3.2.0
@@ -278,7 +307,7 @@ cmake \
     -D BUILD_EXAMPLES=OFF ..
 
 ```
-Make builder!
+~~Make builder!~~
 ```bsh
 (envCV) $ chmod +x build.sh
 (envCV) $ ./build.sh
@@ -295,17 +324,17 @@ Make builder!
 ...
 ```
 
-Compile
+~~Compile~~
 ```bsh
 (envCV) $ make -j4
 ```
-Install
+~~Install~~
 ```bsh
 (envCV) $ sudo make install
 (envCV) $ sudo ldconfig
 ```
 
-Certicify and move cv2 file.
+~~Certicify and move cv2 file.~~
 ```bsh
 (envCV) $ ls /usr/local/lib/python3.6/site-packages
 cv2.cpython-36m-aarch64-linux-gnu.so
@@ -322,6 +351,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 '3.2.0'
 >>> 
 ```
+
+## Certicify nvcc version
 
 ```bsh
 $ nvcc -V
