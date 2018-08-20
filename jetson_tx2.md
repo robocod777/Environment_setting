@@ -1,8 +1,17 @@
 OS: Ubuntu16.04 aarch64
 
 # 1. Jetpack Install (Update?)
+Downdload Jetpack v3.3 and follow the docs.
+I failed to install CUDA by remote, so I installed several packages by myself.
+```bsh
+$ sudo apt-get install cuda-toolkit-9-0 libgomp1 libfreeimage-dev libopenmpi-dev openmpi-bin
+```
+
+
+## old Ver.
 Jetpack download 3.2/
-## Memo
+
+### Memo
 I tried installing with "sudo apt -f install" without any package name several times.
 I couldn't install at once.
 
@@ -14,7 +23,7 @@ $ ./oceanFFT
 
 #2. sudo apt-get update
 
-## Keyserver Problem.
+### Keyserver Problem.
 ```bsh
 W: GPG error: file:/var/cuda-repo-9-0-local  Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY XXXXXXXXXXXXXXXX
 W: The repository 'file:/var/cuda-repo-9-0-local  Release' is not signed.
@@ -29,7 +38,7 @@ Solution: Add a public key. [link](https://devtalk.nvidia.com/default/topic/1030
 ```bsh
 $ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys XXXXXXXXXXXXXXXX
 ```
-## lock Problem
+### lock Problem
 ```bsh
 E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
 E: Unable to lock the administration directory (/var/lib/dpkg/), is another process using it?
