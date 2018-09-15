@@ -143,7 +143,8 @@ $ cmake ..
 $ make check 
 $ sudo make install
 ```
-
+after make check
+```bsh
 Test project /home/joon/eigen_ws/eigen-eigen-5a0156e40feb/build
         Start   1: rand
   1/801 Test   #1: rand .............................   Passed    7.09 sec
@@ -1763,7 +1764,7 @@ The following tests FAILED:
 	745 - sparse_extra_3 (OTHER_FAULT)
 	746 - openglsupport (OTHER_FAULT)
 	795 - cxx11_tensor_io (SEGFAULT)
-
+```
 
 
 ## Install g2o
