@@ -1766,6 +1766,21 @@ The following tests FAILED:
 	795 - cxx11_tensor_io (SEGFAULT)
 ```
 
+2nd trial:
+```bsh
+Label Time Summary:
+Official       = 566.48 sec (678 tests)
+Unsupported    =  73.09 sec (110 tests)
+
+Total Test time (real) = 794.31 sec
+
+The following tests FAILED:
+	480 - bdcsvd_9 (OTHER_FAULT)
+	745 - sparse_extra_3 (OTHER_FAULT)
+	746 - openglsupport (OTHER_FAULT)
+	795 - cxx11_tensor_io (SEGFAULT)
+```
+
 
 ## Install g2o
 [g2o github](https://github.com/RainerKuemmerle/g2o)
