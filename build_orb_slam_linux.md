@@ -317,13 +317,8 @@ $ cd ~/orb_slam2_src/ORB_SLAM2/
 $ cdmod +x build_ros.sh
 $ ./build_ros.sh
 ```
-## Run
-```bsh
-$ roscore
-$ rosrun usb_cam usb_cam_node /usb_cam/image_raw:=/camera/image_raw
-$ rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml 
-```
 
+## Test the camera
 I installed (v4l-utils) because of a warning "[ WARN] [1451228881.432495085]: sh: 1: v4l2-ctl: not found".
 
 ### usb_camera launch
@@ -334,5 +329,89 @@ If you want to edit an image size etc., '$ rosed usb_cam usb_cam-test.launch' wi
 
 ### Camera Calibration
 ```bsh
-$ rosrun camera_calibration cameracalibrator.py --size 8x6 --square 0.027 image:=/camera/image_raw
+$ rosrun camera_calibration cameracalibrator.py --size 8x6 --square 0.027 image:=/usb_cam/image_raw
+$ mv /tmp/calibrationdata.tar.gz somewhere/
+$ cd somewhere
+$ tar xzvf calibrationdata.tar.gz 
+$ cp ost.txt ost.ini
+$ rosrun camera_calibration_parsers convert ost.ini head_camera.yaml
+[ INFO] : Saved head_camera.yaml
+$ mv head_camera.yaml
+$ mkdir -p ~/.ros/camera_info
+$ mv head_camera.yaml ~/.ros/camera_info/
+$ roslaunch usb_cam usb_cam-test.launch
+```
+
+edit head_camera.yaml file.
+
+```yaml
+camera name: head_camera.yaml
+```
+
+or add <param name="camera_info_url" value="file:///home/ubuntu/catkin_ws/data/dd_vga_s0/head_camera.yaml" /> to usb_cam-test.launch.
+
+
+## Run
+```bsh
+$ roscore
+$ rosrun usb_cam usb_cam_node /usb_cam/image_raw:=/camera/image_raw
+$ rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml 
+```
+
+
+```
+# ~/orb_slam2_src/camera.launch
+<launch>
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="1920" />
+    <param name="image_height" value="1080" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+    <param name="camera_info_url" value="file:///home/myhome/.ros/camera_info/head_camera.yaml" />
+  </node>
+  <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+    <remap from="image" to="/usb_cam/image_raw"/>
+    <param name="autosize" value="true" />
+  </node>
+</launch>
+```
+
+### Camera calibration via opencv(c++)
+[blog(Camera calibration using C++ and OpenCV)](https://sourishghosh.com/2016/camera-calibration-cpp-opencv/)
+[github](https://github.com/sourishg/stereo-calibration/)
+
+Edit setup_calibration function in calib_intrinsic.cpp.
+```cpp
+# calib_intrinsic.cpp
+...
+setup_calibration(){
+	...
+	sprintf(img_file, "%s%s%04d.%s", imgs_directory, imgs_filename, k, extension);
+	...
+}
+...
+```
+
+```bsh
+$ ./calibrate -w 8 -h 6 -n 40 -s 0.02423 -d "/home/joon/calibration_data/20180917_c920r/" -i "left-" -o "c920r.yml" -e "png"
+```
+
+e.g.
+```
+Camera.fx: 1448.508356
+Camera.fy: 1454.727761
+Camera.cx: 854.444122
+Camera.cy: 532.110136
+
+Camera.k1: 0.119700
+Camera.k2: -0.135763
+Camera.p1: 0.004556
+Camera.p2: -0.005770
+Camera.k3: -0.024864
+```
+
+### Camera calibration via opencv(python)
+[official page](https://docs.opencv.org/3.1.0/dc/dbb/tutorial_py_calibration.html)
 ```
