@@ -355,7 +355,7 @@ or add <param name="camera_info_url" value="file:///home/ubuntu/catkin_ws/data/d
 ```bsh
 $ roscore
 $ rosrun usb_cam usb_cam_node /usb_cam/image_raw:=/camera/image_raw
-$ rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml 
+$ rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt ~/orb_slam2_ws/ORB_SLAM2/Examples/Monocular/c902r.yaml 
 ```
 
 
@@ -377,6 +377,8 @@ $ rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml
   </node>
 </launch>
 ```
+
+
 
 ### Camera calibration via opencv(c++)
 [blog(Camera calibration using C++ and OpenCV)](https://sourishghosh.com/2016/camera-calibration-cpp-opencv/)
@@ -415,3 +417,4 @@ Camera.k3: -0.024864
 ### Camera calibration via opencv(python)
 [official page](https://docs.opencv.org/3.1.0/dc/dbb/tutorial_py_calibration.html)
 ```
+
