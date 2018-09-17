@@ -274,3 +274,65 @@ $ wget https://vision.in.tum.de/rgbd/dataset/freiburg1/rgbd_dataset_freiburg1_xy
 $ tar -zxf rgbd_dataset_freiburg1_xyz.tgz
 $ ./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml ../dataset/rgbd_dataset_freiburg1_xyz 
 ```
+
+# ROS
+
+## Install usb_cam
+```bsh
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/ros-drivers/usb_cam
+$ cd ..
+$ catkin_make
+```
+
+```bsh
+$ 
+```
+
+## Add -lboost_system
+```bsh
+# ~/orb_slam2_src/ORB_SLAM2/Examples/ROS/ORB_SLAM2/CMakeLists.txt
+set(LIBS
+${OpenCV_LIBS}
+${EIGEN3_LIBS}
+${Pangolin_LIBRARIES}
+${PROJECT_SOURCE_DIR}/../../../Thirdparty/DBoW2/lib/libDBoW2.so
+${PROJECT_SOURCE_DIR}/../../../Thirdparty/g2o/lib/libg2o.so
+${PROJECT_SOURCE_DIR}/../../../lib/libORB_SLAM2.so
+-lboost_system
+)
+```
+
+
+## Install ORB_SLAM2_ROS
+Add ROS_PACKAGE_PATH  
+```bsh
+# ~/.bashrc
+export ROS_PACKAGE_PATH=/home/joon/catkin_ws/src:/opt/ros/kinetic/share:/home/joon/orb_slam2_ws/ORB_SLAM2/Examples/ROS
+```
+
+
+```bsh
+$ cd ~/orb_slam2_src/ORB_SLAM2/
+$ cdmod +x build_ros.sh
+$ ./build_ros.sh
+```
+## Run
+```bsh
+$ roscore
+$ rosrun usb_cam usb_cam_node /usb_cam/image_raw:=/camera/image_raw
+$ rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml 
+```
+
+I installed (v4l-utils) because of a warning "[ WARN] [1451228881.432495085]: sh: 1: v4l2-ctl: not found".
+
+### usb_camera launch
+```bsh
+$ roslaunch usb_cam usb_cam-test.launch
+```
+If you want to edit an image size etc., '$ rosed usb_cam usb_cam-test.launch' will help you.
+
+### Camera Calibration
+```bsh
+$ rosrun camera_calibration cameracalibrator.py --size 8x6 --square 0.027 image:=/camera/image_raw
+```
