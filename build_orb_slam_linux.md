@@ -336,7 +336,7 @@ $ tar xzvf calibrationdata.tar.gz
 $ cp ost.txt ost.ini
 $ rosrun camera_calibration_parsers convert ost.ini head_camera.yaml
 [ INFO] : Saved head_camera.yaml
-$ mv head_camera.yaml
+
 $ mkdir -p ~/.ros/camera_info
 $ mv head_camera.yaml ~/.ros/camera_info/
 $ roslaunch usb_cam usb_cam-test.launch
@@ -345,7 +345,7 @@ $ roslaunch usb_cam usb_cam-test.launch
 edit head_camera.yaml file.
 
 ```yaml
-camera name: head_camera.yaml
+camera name: head_camera
 ```
 
 or add <param name="camera_info_url" value="file:///home/ubuntu/catkin_ws/data/dd_vga_s0/head_camera.yaml" /> to usb_cam-test.launch.
@@ -355,10 +355,22 @@ or add <param name="camera_info_url" value="file:///home/ubuntu/catkin_ws/data/d
 ```bsh
 $ roscore
 $ rosrun usb_cam usb_cam_node /usb_cam/image_raw:=/camera/image_raw
-$ rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt ~/orb_slam2_ws/ORB_SLAM2/Examples/Monocular/c902r.yaml 
+$ rosrun ORB_SLAM2 Mono ~/orb_slam2_src/ORB_SLAM2/Vocabulary/ORBvoc.txt ~/orb_slam2_src/ORB_SLAM2/Examples/Monocular/c902r.yaml 
 ```
 
 
+
+**frame buffer**
+[link1](https://github.com/stevenlovegrove/Pangolin/issues/260#issuecomment-386968496)
+[link2](https://github.com/raulmur/ORB_SLAM2/issues/617)
+```
+just open
+Pangolin/src/display/device/display_x11.cpp
+and change
+GLX_DOUBLEBUFFER , glx_doublebuffer ? True : False,
+to
+GLX_DOUBLEBUFFER , glx_doublebuffer ? False : False,
+then make and install Pangolin
 ```
 # ~/orb_slam2_src/camera.launch
 <launch>
